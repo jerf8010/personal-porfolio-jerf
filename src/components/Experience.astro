@@ -1,0 +1,142 @@
+---
+import ExperienceIItem from "./ExperienceIItem.astro";
+
+const EXPERIENCEJUSTO = [
+    {
+        title: "Growth Data Science Manager",
+        date: "Agosto 2024 - Actualmente",
+        description:
+            "Lidero el desarrollo e implementación de modelos de Machine Learning y análisis avanzados de datos para optimizar la adquisición y retención de clientes. \
+            Colaboro estrechamente con el equipo de Growth Marketing para diseñar estrategias basadas en datos que impulsan el crecimiento y la eficiencia operativa.",
+        location: "Ciudad de México",
+    },
+    {
+        title: "Product Data Science Manager",
+        date: "Enero 2024 - Agosto 2024",
+        description:
+            "Dirigí análisis estadísticos avanzados y experimentos A/B para optimizar las estrategias de producto, mejorando la experiencia del usuario y la eficiencia operativa. \
+            Lideré iniciativas clave que resultaron en una toma de decisiones más informada y en mejoras significativas en los KPIs del producto. \
+            Colaboré con equipos multifuncionales para alinear los objetivos de negocio con las soluciones basadas en datos.",
+        location: "Ciudad de México",
+    },
+    {
+        title: "Data Science Manager",
+        date: "Julio 2023 - Enero 2024",
+        description:
+            "Lidero proyectos de ciencia de datos para impulsar el crecimiento y la eficiencia en diversas áreas, incluyendo pronósticos estratégicos, optimización de retención y estrategias de precios. \
+            Diseño e implemento modelos predictivos y analíticos avanzados utilizando herramientas como Docker, GitHub Actions y MLflow para la puesta en producción. \
+            Colaboro con equipos multifuncionales para transformar insights en estrategias accionables, contribuyendo a mejoras continuas en retención, ingresos y eficiencia operativa.",
+        location: "Ciudad de México",
+    },
+];
+
+const EXPERIENCEARKON = [
+    {
+        title: "Data Science Technical Lead",
+        date: " Julio 2022 - Septiembre 2023",
+        description:
+            "Lideré equipos en el diseño e implementación de soluciones de analytics y machine learning, alineadas con objetivos de negocio. \
+        Diseñé arquitecturas escalables en Azure y gestioné proyectos end-to-end, desde análisis hasta despliegue. \
+        Desarrollé chatbots con Azure AI y modelos de lenguaje, e impulsé la toma de decisiones mediante comunicación clara de insights a stakeholders.",
+        location: "Ciudad de México",
+    },
+    {
+        title: "Senior Data Science",
+        date: "Julio 2021 - Julio 2022",
+        description:
+            "Lideré proyectos avanzados de análisis de datos y machine learning para optimizar la distribución de productos, reducir devoluciones y aumentar ventas. \
+            Diseñé e implementé modelos de ML utilizando Azure Data Factory y Azure Machine Learning, con despliegue exitoso en Perú. \
+            Desarrollé dashboards interactivos en Power BI para monitorear KPIs en tiempo real y validé resultados mediante pruebas estadísticas de inferencia causal. \
+            Colaboré con equipos de operaciones y presenté insights clave a stakeholders para impulsar la toma de decisiones.",
+        location: "Ciudad de México"
+    },
+    {
+        title: "Semi Senior Data Science",
+        date: "Abril 2021 - Julio 2021",
+        description:
+            "Contribuí como Data Scientist en la división de Ventas, analizando datos históricos con Azure Data Studio y Python para identificar patrones y tendencias. \
+        Diseñé e implementé un modelo de Machine Learning para pronósticos de demanda intermitente en series de tiempo, mejorando la precisión y confiabilidad. \
+        Presenté insights clave a stakeholders mensualmente y colaboré en equipos multifuncionales usando metodología Agile.",
+        location: "Ciudad de México",
+    },
+];
+
+let isArkonExpanded = false;
+---
+    <!-- 
+    <span class="absolute flex items-center justify-center size-3 bg-blue-100 rounded-full -start-8 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+    </span> -->
+
+    <h2 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+        <img
+          class="rounded-full w-12 h-12 object-cover mr-3"
+          src="/justo.png"
+          alt="jerf photo"
+        />
+        Jüsto
+      </h2>
+      
+      <ol class="relative border-s border-gray-200 dark:border-gray-700 ms-20">
+        {EXPERIENCEJUSTO.map((experience) => (
+          <li class="mb-10 ms-6">
+            <ExperienceIItem {...experience} />
+          </li>
+        ))}
+      </ol>
+      
+      <h2 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+        <img
+          class="rounded-full w-12 h-12 object-cover mr-3"
+          src="/arkondata.jpeg"
+          alt="jerf photo"
+        />
+        Arkon Data
+      </h2>
+      
+      <div id="arkon-section" class:list={["relative border-s border-gray-200 dark:border-gray-700 ms-20", !isArkonExpanded && "degraded"]}>
+        <ol>
+          {EXPERIENCEARKON.map((experience) => (
+            <li class="mb-10 ms-6">
+              <ExperienceIItem {...experience} />
+            </li>
+          ))}
+        </ol>
+      </div>
+      
+      <button
+        id="read-more-btn"
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+      >
+        {isArkonExpanded ? 'Leer Menos' : 'Leer Más'}
+      </button>
+      
+      <style>
+        .degraded {
+          mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+          overflow: hidden;
+          max-height: 100px;
+        }
+      </style>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const arkSection = document.getElementById('arkon-section');
+          const readMoreBtn = document.getElementById('read-more-btn');
+      
+          if (arkSection && readMoreBtn) {
+            function toggleArkonSection() {
+              arkSection?.classList.toggle('degraded');
+      
+              if (readMoreBtn) {
+                const isExpanded = !arkSection?.classList.contains('degraded');
+                readMoreBtn.textContent = isExpanded ? 'Leer Menos' : 'Leer Más';
+              }
+            }      
+            readMoreBtn.addEventListener('click', toggleArkonSection);
+          } else {
+            console.error('No se encontraron los elementos necesarios.');
+          }
+        });
+      </script>
+      

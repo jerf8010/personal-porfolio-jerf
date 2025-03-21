@@ -1,11 +1,88 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import Badge from '../components/Badge.astro';
+import LinkedinIcon from '../components/icons/LinkedinIcon.astro';
+import GithubIcon from '../components/icons/GithubIcon.astro';
 import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+import SocialPills from '../components/SocialPills.astro';
+import MailIcon from '../components/icons/MailIcon.astro';
+import Experience from '../components/Experience.astro';
+import SectionContainer from '../components/SectionContainer.astro';
+import Footer from '../components/Footer.astro';
+import ExperienceIcon from '../components/icons/ExperienceIcon.astro';
+import BadgesIcon from '../components/icons/BadgesIcon.astro';
+import AboutMeIcon from '../components/icons/AboutMeIcon.astro';
+import AboutMe from '../components/AboutMe.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout 
+	title="Porfolio de Emanuel Fitta - Data Science - Data Analysis - Business Intelligence"
+	description="Data Science - Data Analysis - Business Intelligence. Especializado en Análitica Avanzada"
+>
+	<main class="px-4">
+		<SectionContainer class="flex flex-col items-center lg:items-start max-w-[700px] mx-auto py-44 pb-55">
+			<h1     
+				class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white flex items-center gap-x-4"
+			>
+				Hola, soy Emanuel Fitta
+				<a 
+					href="https://www.linkedin.com/in/emanuel-fitta/"
+					target="_blank"
+					rel="noopener"
+					class="flex justify-center items-center"
+				>
+					<Badge>Disponible</Badge>
+				</a> 
+			</h1>
+			<p
+				class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+			>
+				Tengo +6 años de experiencia como Analista y Científico de Datos y +10 años como Profesor de materias relacionadas
+				con Matemáticas, Física y Machine Learning. Me especializado en Análitica Avanzada y Estadística.
+			</p>
+
+			<nav class="flex flex-wrap gap-4 mt-10 justify-center lg:justify-start mx-auto">
+				<SocialPills href="https://www.linkedin.com/in/emanuel-fitta/">
+						<LinkedinIcon class="size-4 md:size-6"/>
+						LinkedIn
+					</SocialPills>
+					<SocialPills href="https://github.com/jerf8010">
+						<GithubIcon class="size-4 md:size-6"/>
+						Github
+					</SocialPills>
+					<SocialPills href="mailto:jerf8010@gmail.com" >
+						<MailIcon class="size-4 md:size-6"/>
+						jerf8010@gmail.com
+					</SocialPills>
+					<SocialPills href="https://www.credly.com/users/jose-emanuel-rodriguez-fitta">
+						<BadgesIcon class="size-6"/>
+						Credly
+					</SocialPills>
+			</nav>
+		</SectionContainer>
+
+		<SectionContainer id="experience" class="flex flex-col items-start max-w-[700px] mx-auto pb-55 scroll-mt-22">
+			<h2 class="text-2xl font-semibold mb-4 flex gap-x-3 items-center">
+				<ExperienceIcon class="size-8"/>
+				Experiencia Laboral
+			</h2>
+			<Experience/>
+			
+		</SectionContainer>		
+
+		<SectionContainer id="about" class="flex flex-col items-start max-w-[700px] mx-auto pb-55 scroll-mt-22">
+			<h2 class="text-2xl font-semibold mb-4 flex gap-x-3 items-center">
+				<AboutMeIcon class="size-8"/>
+				Sobre mi
+			</h2>
+			<AboutMe/>
+			
+		</SectionContainer>	
+		
+	</main>
 </Layout>
+
+
