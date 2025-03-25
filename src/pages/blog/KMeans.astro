@@ -1,0 +1,308 @@
+---
+import "../../styles/global.css";
+import "katex/dist/katex.min.css";
+import katex from "katex";
+
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import SectionContainerBlog from "../../components/SectionContainerBlog.astro";
+
+const { formula, block = false } = Astro.props;
+const renderedFormula = katex.renderToString(String(formula), {
+    displayMode: block,
+});
+---
+
+<MainLayout
+    title="Porfolio de Emanuel Fitta - Data Science - Data Analysis - Business Intelligence"
+    description="Data Science - Data Analysis - Business Intelligence. Especializado en Análitica Avanzada"
+>
+    <Header
+        inicioHref="/"
+        aboutHref="/#about"
+        experienceHref="/#experience"
+        projectsHref="/#projects"
+        blogHref="/blog"
+    />
+    <main class="px-4">
+        <SectionContainerBlog
+            class="flex flex-col items-center lg:items-start w-full mx-auto py-44 pb-55"
+        >
+            <h1
+                class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white flex items-center gap-x-4 py-10"
+            >
+                K Means
+            </h1>
+            <p class="py-2">
+                Dentro de los algoritmos de <span
+                    >aprendizaje no supervisado</span
+                > en
+                <strong>Machine Learning</strong>, uno de los más utilizados es <strong
+                    >K-Means</strong
+                >. Este algoritmo es ampliamente empleado para la <em
+                    >segmentación de clientes</em
+                >,
+                <em>detección de patrones</em> y <em
+                    >reducción de dimensionalidad</em
+                >.
+            </p>
+            <p class="py-2">
+                K-Means funciona agrupando datos en <strong>K clusters</strong> basándose
+                en su similitud, minimizando la distancia dentro de cada grupo. Aunque
+                es eficiente y fácil de implementar, puede verse afectado por la
+                elección inicial de los centroides y la forma de los datos.
+            </p>
+            <p class="py-2">
+                En este artículo, exploraremos cómo funciona K-Means, sus
+                ventajas y desventajas, y su implementación tanto en Python como
+                en R.
+            </p>
+
+            <h2
+                class="text-3xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-white flex items-center gap-x-4 py-10"
+            >
+                ¿Cómo funciona el algoritmo?
+            </h2>
+
+            <p class="py-2">
+                Este algoritmo opera de forma iterativa, repitiendo un conjunto
+                de pasos hasta que los centroides <strong>converjan</strong>, es
+                decir, hasta que sus posiciones dejen de cambiar
+                significativamente entre iteraciones. Este proceso garantiza que
+                los datos queden agrupados de manera óptima dentro de cada
+                cluster.
+            </p>
+
+            <ul class="w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <li class="pb-3 sm:pb-4">
+                    <div class="flex flex-col items-center rtl:space-x-reverse">
+                        <div class="shrink-0"></div>
+                        <div class="flex-1 w-full py-5">
+                            <p class="text-lg text-gray-900 dark:text-white">
+                                Paso 1. Inicialización de centroides
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Se eligen K centroides iniciales de manera
+                                aleatoria, estos pueden o no, ser puntos del
+                                dataset.
+                            </p>
+                        </div>
+                        <div class="flex-1 w-full py-5">
+                            <p class="text-lg text-gray-900 dark:text-white">
+                                Paso 2. Asignación de los puntos a los clusters
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Cada punto de datos se asigna al centroide más
+                                cercano utilizando una métrica de distancia
+                                (usualmente la distancia euclidiana).
+                            </p>
+                        </div>
+                        <div class="flex-1 w-full py-5">
+                            <p class="text-lg text-gray-900 dark:text-white">
+                                Paso 3. Reubicación de centroides
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Se recalculan los centroides como el promedio
+                                (de aquí el nombre K Means) de todos los puntos
+                                asignados a cada cluster.
+                            </p>
+                        </div>
+                        <div class="flex-1 w-full py-5">
+                            <p class="text-lg text-gray-900 dark:text-white">
+                                Paso 4. Repetición hasta convergencia
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Los pasos 2 y 3 se repiten hasta que los
+                                centroides dejen de moverse significativamente o
+                                se alcance el número máximo de iteraciones.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <p class="py-2">
+                A continuación, encontrarás una aplicación interactiva que
+                muestra el paso a paso del algoritmo KMeans.
+            </p>
+            <p class="py-2"></p>
+            Primero, seleccionamos los parámetros iniciales: la cantidad de observaciones
+            que tendrá nuestro dataset de prueba, el grado de dispersión de los puntos
+            con los que trabajaremos, y el número de clusters que esperamos obtener.
+            Es importante recordar que, en este algoritmo, debemos conocer de antemano
+            el número de clusters.
+            <p class="py-2"></p>
+            Finalmente, se establece el parámetro de "semilla de aleatoriedad" o
+            random state, que se utilizará para definir los centroides iniciales
+            como para garantizar que los resultados sean reproducibles.
+            <p class="py-2">
+                Debajo del gráfico encontrarás un botón que te lleva a la
+                siguiente iteración dentro del algoritmo, cuando este converja,
+                la aplicación te lo hará saber y esto significará que se han
+                encontrado los clusters finales.
+            </p>
+
+            <!-- Dashboard interactivo -->
+            <iframe
+                class="pt-10"
+                src="https://jerf8010-backend-kmeans-blog-kmeans-gtn94x.streamlit.app/?embed=true&show_toolbar=false&show_colored_line=false&disable_scrolling=true&dark_theme=true"
+                width="100%"
+                height="1000px"
+                style="border:none;"></iframe>
+
+            <h2
+                class="text-3xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-white flex items-center gap-x-4 py-10"
+            >
+                Tipos de distancias
+            </h2>
+            <p class="py-2">
+                KMeans es un algoritmo que, como se vió antes se basa en
+                construir los clusters o segmentos tomando los puntos más
+                cercanos a cada centroide. Sin embargo, el concepto de cercanía
+                depende por completo de como se mida la distancia en espacio
+                donde viven los puntos. A continuación hablaremos de algunas de
+                las principales formas de medir distancia para este algoritmo.
+            </p>
+            <ul
+                class="max-w-full space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400"
+            >
+                <h2
+                    class="mb-2 text-lg font-semibold text-gray-900 dark:text-white"
+                >
+                    <li>Distancia Euclideana</li>
+                </h2>
+                <p class="py-2">
+                    La distancia euclidiana es la medida de distancia más
+                    utilizada en KMeans. Es simplemente la "distancia recta"
+                    entre dos puntos en un espacio multidimensional. Se calcula
+                    como la raíz cuadrada de la suma de las diferencias
+                    cuadradas entre las coordenadas de los puntos.
+                </p>
+                <div
+                    set:html={katex.renderToString(
+                        "d(x, y) = \\sqrt{\\sum_{i=1}^{n}(x_i - y_i)^2}",
+                        {
+                            displayMode: true,
+                            throwOnError: false,
+                        },
+                    )}
+                />
+
+                <h2
+                    class="mb-2 text-lg font-semibold text-gray-900 dark:text-white"
+                >
+                    <li>Distancia Manhattan</li>
+                </h2>
+                <p class="py-2">
+                    La distancia Manhattan mide la distancia total recorrida a
+                    lo largo de los ejes en una cuadrícula, es decir, la suma de
+                    las diferencias absolutas en las coordenadas de los puntos.
+                </p>
+                <div
+                    set:html={katex.renderToString(
+                        "d(x, y) = \\sum_{i=1}^{n}|x_i - y_i|",
+                        {
+                            displayMode: true,
+                            throwOnError: false,
+                        },
+                    )}
+                />
+
+                <h2
+                    class="mb-2 text-lg font-semibold text-gray-900 dark:text-white"
+                >
+                    <li>Distancia de Minkowski</li>
+                </h2>
+                <p class="py-2">
+                    Generaliza tanto la distancia Euclidiana como la Manhattan.
+                    Dependiendo del valor de , se puede obtener la distancia
+                    Euclidiana (p=2) o la Manhattan (p=1).
+                </p>
+                <div
+                    set:html={katex.renderToString(
+                        "d(x, y) = \\left(\\sqrt{\\sum_{i=1}^{n}|x_i - y_i|^p}\\right)^{1/p}",
+                        {
+                            displayMode: true,
+                            throwOnError: false,
+                        },
+                    )}
+                />
+            </ul>
+
+            <h2
+                class="text-3xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-white flex items-center gap-x-4 py-10"
+            >
+                Variación de KMeans: KMeans++
+            </h2>
+
+            <p class="py-2">
+                KMeans++ es una variación sobre el algoritmo clásico de KMeans
+                que busca mejorar la selección de los centroides iniciales para
+                evitar la convergencia a soluciones subóptimas. En el KMeans
+                tradicional, los centroides iniciales se eligen de manera
+                aleatoria, lo que puede llevar a que el algoritmo converja a una
+                solución subóptima o tarde mucho en hacerlo, especialmente si
+                los centroides iniciales están muy dispersos o cerca de puntos
+                no representativos del dataset.
+            </p>
+            <p class="py-2">
+                Esta manera de seleccionar los centroides iniciales tiene como
+                objetivo maximizar la distancia entre los puntos seleccionados.
+                Este procedimiento ayuda a que los centroides iniciales estén
+                mejor distribuidos y, por lo tanto, el algoritmo converge más
+                rápido y con mayor probabilidad de encontrar una mejor solución.
+            </p>
+            <p class="py-2">
+                El proceso de selección de centroides en KMeans++ sigue estos
+                pasos:
+            </p>
+            <ul class="w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <li class="pb-3 sm:pb-4">
+                    <div class="flex flex-col items-center rtl:space-x-reverse">
+                        <div class="shrink-0"></div>
+                        <div class="flex-1 w-full py-5">
+                            <p class="text-lg text-gray-900 dark:text-white">
+                                Paso 1. Selección del primer centroide
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Se elige un punto aleatorio del dataset como el
+                                primer centroide.
+                            </p>
+                        </div>
+                        <div class="flex-1 w-full py-5">
+                            <p class="text-lg text-gray-900 dark:text-white">
+                                Paso 2. Selección de los siguientes centroides
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Se selecciona el siguiente centroide de entre
+                                los puntos, de tal forma que la probabilidad de
+                                elegir un punto como centroide sea directamente
+                                proporcional a su distancia desde el centroide
+                                más cercano previamente elegido. Es decir, se
+                                seleccionan como centroides iniciales puntos que
+                                están estratégicamente más alejados entre sí.
+                            </p>
+                        </div>
+                        <div class="flex-1 w-full py-5">
+                            <p class="text-lg text-gray-900 dark:text-white">
+                                Paso 3. Iteración
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Se repite el paso 2 hasta tener k centroides.
+                            </p>
+                        </div>
+                        <div class="flex-1 w-full py-5">
+                            <p class="text-lg text-gray-900 dark:text-white">
+                                Paso 4. Ahora KMeans...
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Con estos centroides, se procede con el
+                                algoritmo K-Means tradicional.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </SectionContainerBlog>
+    </main>
+</MainLayout>
