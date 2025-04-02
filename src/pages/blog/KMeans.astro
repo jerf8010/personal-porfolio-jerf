@@ -6,6 +6,7 @@ import katex from "katex";
 import MainLayout from "../../layouts/MainLayout.astro";
 import Header from "../../components/Header.astro";
 import SectionContainerBlog from "../../components/SectionContainerBlog.astro";
+import CodeSnipet from "../../components/CodeSnipet.astro";
 
 const { formula, block = false } = Astro.props;
 const renderedFormula = katex.renderToString(String(formula), {
@@ -143,9 +144,17 @@ const renderedFormula = katex.renderToString(String(formula), {
             </p>
 
             <!-- Dashboard interactivo -->
+            <!--
             <iframe
                 class="pt-10"
                 src="https://jerf8010-backend-kmeans-blog-kmeans-gtn94x.streamlit.app/?embed=true&show_toolbar=false&show_colored_line=false&disable_scrolling=true&dark_theme=true"
+                width="100%"
+                height="1000px"
+                style="border:none;"></iframe>
+             -->
+            <iframe
+                class="pt-10"
+                src="https://backend-kmeans-blog.onrender.com"
                 width="100%"
                 height="1000px"
                 style="border:none;"></iframe>
@@ -303,6 +312,49 @@ const renderedFormula = katex.renderToString(String(formula), {
                     </div>
                 </li>
             </ul>
+            <h2
+                class="text-3xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-white flex items-center gap-x-4 py-10"
+            >
+                Ejemplo de implementación
+            </h2>
+
+            <CodeSnipet
+                pythonCode=`
+from sklearn.cluster import KMeans
+import numpy as np
+# Generar datos de ejemplo
+np.random.seed(42)
+X = np.random.rand(100, 2)  # 100 puntos con 2 características
+
+# Configuración del modelo K-Means con todos los parámetros
+kmeans = KMeans(
+    n_clusters=3,            # Número de clusters
+    init='k-means++',        # Método de inicialización ('random' o 'k-means++')
+    n_init=10,               # Número de inicializaciones diferentes
+    max_iter=300,            # Iteraciones máximas
+    tol=1e-4,                # Tolerancia de convergencia
+    random_state=42,         # Semilla para reproducibilidad
+    algorithm='lloyd',       # Algoritmo ('lloyd', 'elkan')
+)
+# Ajustar modelo y obtener etiquetas
+kmeans.fit(X)`
+                rCode=`
+# Cargar paquete necesario
+library(stats)
+
+# Generar datos de ejemplo
+set.seed(42)
+X <- matrix(runif(200), ncol = 2)  # 100 puntos con 2 características
+
+# Aplicar K-Means con todos los parámetros disponibles
+kmeans_result <- kmeans(
+  X, 
+  centers = 3,        # Número de clusters
+  iter.max = 300,     # Iteraciones máximas
+  nstart = 10,        # Número de reinicios
+  algorithm = "Lloyd" # Algoritmo ('Hartigan-Wong', 'Lloyd', 'Forgy', 'MacQueen')
+)`
+            />
         </SectionContainerBlog>
     </main>
 </MainLayout>

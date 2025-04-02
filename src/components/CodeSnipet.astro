@@ -1,0 +1,95 @@
+---
+import { Code } from "astro:components";
+
+export interface Props {
+    pythonCode: string
+    rCode: string
+}
+
+const { pythonCode, rCode } = Astro.props;
+---
+
+<div
+    class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+>
+    <ul
+        class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+        id="defaultTab"
+        data-tabs-toggle="#defaultTabContent"
+        role="tablist"
+    >
+        <li class="me-2">
+            <button
+                id="python-tab"
+                data-tabs-target="#python"
+                type="button"
+                role="tab"
+                aria-controls="python"
+                aria-selected="true"
+                class="inline-block p-4 text-blue-600 rounded-ss-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500"
+                >Python</button
+            >
+        </li>
+        <li class="me-2">
+            <button
+                id="rlang-tab"
+                data-tabs-target="#rlang"
+                type="button"
+                role="tab"
+                aria-controls="rlang"
+                aria-selected="false"
+                class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                >R</button
+            >
+        </li>
+    </ul>
+    <slot name="snipet" />
+    <div id="defaultTabContent">
+        <div
+            class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
+            id="python"
+            role="tabpanel"
+            aria-labelledby="python-tab"
+        >
+            <div slot="python">
+                <Code code={pythonCode} lang="python" wrap />
+            </div>
+        </div>
+        <div
+            class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
+            id="rlang"
+            role="tabpanel"
+            aria-labelledby="rlang-tab"
+        >
+        <Code code={rCode} lang="r" wrap />
+    </div>
+    </div>
+</div>
+
+<script type="module">
+    function iniciarTabs() {
+        console.log("✅ Tabs inicializados");
+
+        const tabs = document.querySelectorAll("[data-tabs-target]");
+        const tabPanels = document.querySelectorAll("[role='tabpanel']");
+
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", function () {
+                const targetPanel = document.querySelector(tab.dataset.tabsTarget);
+                
+                tabPanels.forEach((panel) => panel.classList.add("hidden"));
+                tabs.forEach((otherTab) => otherTab.classList.remove("text-blue-600", "dark:text-blue-500"));
+
+                targetPanel.classList.remove("hidden");
+                tab.classList.add("text-blue-600", "dark:text-blue-500");
+            });
+        });
+
+        tabs[0]?.click();
+    }
+
+    // 🔄 Esperar que Astro cargue completamente antes de ejecutar
+    setTimeout(iniciarTabs, 100);
+    document.addEventListener("DOMContentLoaded", iniciarTabs);
+    document.addEventListener("astro:after-swap", iniciarTabs);
+</script>
