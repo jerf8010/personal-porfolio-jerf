@@ -1,0 +1,205 @@
+---
+import "../../styles/global.css";
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import SectionContainerBlog from "../../components/SectionContainerBlog.astro";
+import CodeSnipet from "../../components/CodeSnipet.astro";
+import LinearRegressionIcon from "../../components/icons/LinearRegressionIcon.astro";
+---
+
+<MainLayout
+    title="Porfolio de Emanuel Fitta - Data Science - Data Analysis - Business Intelligence"
+    description="Data Science - Data Analysis - Business Intelligence. Especializado en Análitica Avanzada"
+>
+    <Header
+        inicioHref="/"
+        aboutHref="/#about"
+        experienceHref="/#experience"
+        projectsHref="/#projects"
+        blogHref="/blog"
+    />
+    <main class="px-4" class="flex pt-20">
+        <aside
+            id="default-sidebar"
+            class="fixed top-30 z-40 w-52 sm:w-60 lg:w-80 h-screen transition-transform xs:translate-x-0"
+            aria-label="Sidebar"
+        >
+            <div class="h-full px-3 py-4 overflow-y-auto">
+                <ul class="space-y-2 px-5 font-medium">
+                    <li>
+                        <span class="py-10">Aprendizaje Supervisado</span>
+                    </li>
+                    <ul class="space-y-2 px-5 font-medium list-disc">
+                        <li>
+                            <div
+                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
+                            >
+                                <span class="ms-3">Regresión</span>
+                            </div>
+                        </li>
+                        <ul>
+                            <li>
+                                <button
+                                    id="lr-tab"
+                                    data-name-nav="#lr"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="lr"
+                                    aria-selected="false"
+                                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                >
+                                    <LinearRegressionIcon
+                                        class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                    />
+                                    <span class="ms-3">Regresión Lineal</span>
+                                </button>
+
+                                <button
+                                    id="ridge-tab"
+                                    data-name-nav="#ridge"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="ridge"
+                                    aria-selected="false"
+                                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                >
+                                    <LinearRegressionIcon
+                                        class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                    />
+                                    <span class="ms-3">Regresión Ridge</span>
+                                </button>
+                            </li>
+                        </ul>
+                        <li>
+                            <div
+                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
+                            >
+                                <span class="ms-3">Clasificación</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <hr
+                        class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"
+                    />
+                    <li>
+                        <span class="py-10">Aprendizaje No Supervisado</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="flex-1 ml-64 px-30">
+            <SectionContainerBlog
+                class="flex flex-col items-center lg:items-start w-full mx-auto py-44 pb-55"
+            >
+                <h1
+                    id="cheat-sheet-ml"
+                    class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-800 dark:text-white flex items-center gap-x-4 py-10 scroll-mt-22"
+                >
+                    Cheat Sheet Machine Learning
+                </h1>
+                <div
+                    id="lr"
+                    role="complementary"
+                    aria-labelledby="lr-tab"
+                    class="hidden"
+                >
+                    <CodeSnipet
+                        dataTabsTargetPython="#python-lr"
+                        ariaControlsPython="python-lr"
+                        pythonCode=`
+from sklearn.cluster import KMeans
+import numpy as np
+# Generar datos de ejemplo
+np.random.seed(42)
+X = np.random.rand(100, 2)  # 100 puntos con 2 características
+
+# Configuración del modelo K-Means con todos los parámetros
+kmeans = KMeans(
+    n_clusters=3,      # Número de clusters
+    init='k-means++',  # Inicialización ('random' o 'k-means++')
+    n_init=10,         # Número de inicializaciones diferentes
+    max_iter=300,      # Iteraciones máximas
+    tol=1e-4,          # Tolerancia de convergencia
+    random_state=42,   # Semilla para reproducibilidad
+    algorithm='lloyd', # Algoritmo ('lloyd', 'elkan')
+)
+# Ajustar modelo y obtener etiquetas
+kmeans.fit(X)
+                        `
+                        dataTabsTargetR="#r-lr"
+                        ariaControlsR="r-lr"
+                        rCode=`
+# Cargar paquete necesario
+library(stats)
+
+# Generar datos de ejemplo
+set.seed(42)
+X <- matrix(runif(200), ncol = 2)  # 100 puntos con 2 características
+
+# Aplicar K-Means con todos los parámetros disponibles
+kmeans_result <- kmeans(
+  X, 
+  centers = 3,        # Número de clusters
+  iter.max = 300,     # Iteraciones máximas
+  nstart = 10,        # Número de reinicios
+  algorithm = "Lloyd" # Algoritmo ('Hartigan-Wong', 'Lloyd', 'Forgy', 'MacQueen')
+)
+`
+                    />
+                </div>
+                <div
+                    id="ridge"
+                    role="complementary"
+                    aria-labelledby="ridge-tab"
+                    class="hidden"
+                >
+                    <CodeSnipet
+                        dataTabsTargetPython="#python-ridge"
+                        ariaControlsPython="python-ridge"
+                        pythonCode=`
+print("hola desde cheat python ridge")
+                        `
+                        dataTabsTargetR="#r-ridge"
+                        ariaControlsR="r-ridge"
+                        rCode=`
+                        print("hola desde cheat R ridge")
+`
+                    />
+                </div>
+            </SectionContainerBlog>
+        </div>
+    </main>
+</MainLayout>
+
+<script type="module">
+    function iniciarTabs() {
+        console.log("Tabs inicializados");
+
+        const tabs = document.querySelectorAll("[data-name-nav]");
+        const tabPanels = document.querySelectorAll("[role='complementary']");
+
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", function () {
+                const targetPanel = document.querySelector(tab.dataset.nameNav);
+
+                tabPanels.forEach((panel) => panel.classList.add("hidden"));
+                tabs.forEach((otherTab) =>
+                    otherTab.classList.remove(
+                        "text-blue-600",
+                        "dark:text-blue-500",
+                    ),
+                );
+
+                targetPanel.classList.remove("hidden");
+                tab.classList.add("text-blue-600", "dark:text-blue-500");
+            });
+        });
+
+        //tabs[0]?.click();
+    }
+
+    // 🔄 Esperar que Astro cargue completamente antes de ejecutar
+    setTimeout(iniciarTabs, 100);
+    document.addEventListener("DOMContentLoaded", iniciarTabs);
+    document.addEventListener("astro:after-swap", iniciarTabs);
+</script>

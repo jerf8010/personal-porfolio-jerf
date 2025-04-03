@@ -346,6 +346,8 @@ const renderedFormula = katex.renderToString(String(formula), {
             </h2>
 
             <CodeSnipet
+                dataTabsTargetPython="#python"
+                ariaControlsPython="python"
                 pythonCode=`
 from sklearn.cluster import KMeans
 import numpy as np
@@ -357,7 +359,7 @@ X = np.random.rand(100, 2)  # 100 puntos con 2 características
 kmeans = KMeans(
     n_clusters=3,      # Número de clusters
     init='k-means++',  # Inicialización ('random' o 'k-means++')
-    n_init=10,         # Número de inicializaciones
+    n_init=10,         # Número de inicializaciones diferentes
     max_iter=300,      # Iteraciones máximas
     tol=1e-4,          # Tolerancia de convergencia
     random_state=42,   # Semilla para reproducibilidad
@@ -365,6 +367,8 @@ kmeans = KMeans(
 )
 # Ajustar modelo y obtener etiquetas
 kmeans.fit(X)`
+                dataTabsTargetR="#rlang"
+                ariaControlsR="rlang"
                 rCode=`
 # Cargar paquete necesario
 library(stats)

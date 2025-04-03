@@ -1,12 +1,25 @@
 ---
 import { Code } from "astro:components";
+import PythonIcon from "./icons/PythonIcon.astro";
+import RIcon from "./icons/RIcon.astro";
 
 export interface Props {
-    pythonCode: string
-    rCode: string
+    pythonCode: string;
+    rCode: string;
+    dataTabsTargetPython: string;
+    ariaControlsPython: string;
+    dataTabsTargetR: string;
+    ariaControlsR: string;
 }
 
-const { pythonCode, rCode } = Astro.props;
+const {
+    pythonCode,
+    rCode,
+    dataTabsTargetPython,
+    ariaControlsPython,
+    dataTabsTargetR,
+    ariaControlsR,
+} = Astro.props;
 ---
 
 <div
@@ -21,48 +34,52 @@ const { pythonCode, rCode } = Astro.props;
         <li class="me-2">
             <button
                 id="python-tab"
-                data-tabs-target="#python"
+                data-tabs-target={dataTabsTargetPython}
                 type="button"
                 role="tab"
-                aria-controls="python"
+                aria-controls={ariaControlsPython}
                 aria-selected="true"
-                class="inline-block p-4 text-blue-600 rounded-ss-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500"
-                >Python</button
+                class="flex justify-center items-center py-1 px-4 text-blue-600 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
+                <PythonIcon class="size-4 xs:size-6 text-white" />
+
+                <p class="flex-1 px-2 py-2">Python</p>
+            </button>
         </li>
         <li class="me-2">
             <button
                 id="rlang-tab"
-                data-tabs-target="#rlang"
+                data-tabs-target={dataTabsTargetR}
                 type="button"
                 role="tab"
-                aria-controls="rlang"
-                aria-selected="false"
-                class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300"
-                >R</button
+                aria-controls={ariaControlsR}
+                aria-selected="true"
+                class="flex justify-center items-center py-1 px-4 text-blue-600 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+                <RIcon class="size-4 xs:size-6" />
+                <p class="flex-1 px-2 py-2">
+                    R
+                </p></button
             >
         </li>
     </ul>
-    <slot name="snipet" />
     <div id="defaultTabContent">
         <div
-            class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
-            id="python"
+            class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
+            id={ariaControlsPython}
             role="tabpanel"
             aria-labelledby="python-tab"
         >
-            <div slot="python">
-                <Code code={pythonCode} lang="python" wrap />
-            </div>
+            <Code code={pythonCode} lang="python" wrap />
         </div>
         <div
             class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
-            id="rlang"
+            id={ariaControlsR}
             role="tabpanel"
             aria-labelledby="rlang-tab"
         >
-        <Code code={rCode} lang="r" wrap />
-    </div>
+            <Code code={rCode} lang="r" wrap />
+        </div>
     </div>
 </div>
 
@@ -72,13 +89,21 @@ const { pythonCode, rCode } = Astro.props;
 
         const tabs = document.querySelectorAll("[data-tabs-target]");
         const tabPanels = document.querySelectorAll("[role='tabpanel']");
-
+        console.log("tab panels", tabPanels)
         tabs.forEach((tab) => {
             tab.addEventListener("click", function () {
-                const targetPanel = document.querySelector(tab.dataset.tabsTarget);
-                
+                const targetPanel = document.querySelector(
+                    tab.dataset.tabsTarget,
+                );
+                console.log("target panel", targetPanel)
+
                 tabPanels.forEach((panel) => panel.classList.add("hidden"));
-                tabs.forEach((otherTab) => otherTab.classList.remove("text-blue-600", "dark:text-blue-500"));
+                tabs.forEach((otherTab) =>
+                    otherTab.classList.remove(
+                        "text-blue-600",
+                        "dark:text-blue-500",
+                    ),
+                );
 
                 targetPanel.classList.remove("hidden");
                 tab.classList.add("text-blue-600", "dark:text-blue-500");
