@@ -30,7 +30,8 @@ const renderedFormula = katex.renderToString(String(formula), {
             class="flex flex-col items-center lg:items-start w-full mx-auto py-44 pb-55"
         >
             <h1
-                class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white flex items-center gap-x-4 py-10"
+                id="kmeans"
+                class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white flex items-center gap-x-4 py-10 scroll-mt-22"
             >
                 K Means
             </h1>
@@ -152,12 +153,37 @@ const renderedFormula = katex.renderToString(String(formula), {
                 height="1000px"
                 style="border:none;"></iframe>
              -->
+            <!--
             <iframe
                 class="pt-10"
                 src="https://backend-kmeans-blog.onrender.com"
                 width="100%"
                 height="1000px"
                 style="border:none;"></iframe>
+              -->
+            <div class="py-10">
+                <figure>
+                    <img
+                        src="/entradas_blog/KMeans-gif.gif"
+                        alt="Algoritmo KMeans"
+                        width="1000"
+                        height="500"
+                    />
+                    <figcaption>
+                        <p class="py-2 text-xs">
+                            Del lado izquierdo el algoritmo tradicional de
+                            <a
+                                class="text-sm font-bold text-blue-300 underline"
+                                href="#kmeans">KMeans</a
+                            > donde se incializan los centroides de manera aleatoria.
+                            Del lado derecho el algoritmo <a
+                                class="text-sm font-bold text-blue-300 underline"
+                                href="#kmeans++">KMeans++</a
+                            > donde la inicialización de centroides asegura convergencia.
+                        </p>
+                    </figcaption>
+                </figure>
+            </div>
 
             <h2
                 class="text-3xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-white flex items-center gap-x-4 py-10"
@@ -239,7 +265,8 @@ const renderedFormula = katex.renderToString(String(formula), {
             </ul>
 
             <h2
-                class="text-3xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-white flex items-center gap-x-4 py-10"
+                id="kmeans++"
+                class="text-3xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-white flex items-center gap-x-4 py-10 scroll-mt-22"
             >
                 Variación de KMeans: KMeans++
             </h2>
@@ -328,13 +355,13 @@ X = np.random.rand(100, 2)  # 100 puntos con 2 características
 
 # Configuración del modelo K-Means con todos los parámetros
 kmeans = KMeans(
-    n_clusters=3,            # Número de clusters
-    init='k-means++',        # Método de inicialización ('random' o 'k-means++')
-    n_init=10,               # Número de inicializaciones diferentes
-    max_iter=300,            # Iteraciones máximas
-    tol=1e-4,                # Tolerancia de convergencia
-    random_state=42,         # Semilla para reproducibilidad
-    algorithm='lloyd',       # Algoritmo ('lloyd', 'elkan')
+    n_clusters=3,      # Número de clusters
+    init='k-means++',  # Inicialización ('random' o 'k-means++')
+    n_init=10,         # Número de inicializaciones
+    max_iter=300,      # Iteraciones máximas
+    tol=1e-4,          # Tolerancia de convergencia
+    random_state=42,   # Semilla para reproducibilidad
+    algorithm='lloyd', # Algoritmo ('lloyd', 'elkan')
 )
 # Ajustar modelo y obtener etiquetas
 kmeans.fit(X)`
@@ -355,6 +382,26 @@ kmeans_result <- kmeans(
   algorithm = "Lloyd" # Algoritmo ('Hartigan-Wong', 'Lloyd', 'Forgy', 'MacQueen')
 )`
             />
+
+            <h3
+                class="text-xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-white flex items-center gap-x-4 py-10"
+            >
+                Ver la discusión en <a
+                    class="text-md font-bold text-blue-300 underline"
+                    target="_blank"
+                    href="https://www.linkedin.com/posts/emanuel-fitta_datascience-machinelearning-clustering-activity-7258322242940334080-GKHT?utm_source=share&utm_medium=member_desktop&rcm=ACoAADftWuEBeAiwfkeZ7UCnlCrKZgikpzxJ1Qc"
+                    >LinkedIn</a
+                >
+            </h3>
+            <div class="flex justify-center py-5">
+                <iframe
+                    src="https://www.linkedin.com/embed/feed/update/urn:li:share:7258322241761816576?collapsed=1"
+                    class="w-full lg:w-[700px] h-[150px] sm:w-[200px] md:w-[400px]  rounded-lg shadow-lg"
+                    allowfullscreen=""
+                    title="Publicación KMeans LinkedIn"
+                >
+                </iframe>
+            </div>
         </SectionContainerBlog>
     </main>
 </MainLayout>
