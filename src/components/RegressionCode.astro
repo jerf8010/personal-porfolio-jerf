@@ -49,7 +49,7 @@ model.fit(X, y)
         ariaControlsR="r-lr"
         rCode=`${rRegData} 
 # Ajuste de la regresión lineal
-model <- lm(price ~ ., data = df)
+model <- lm(price ~ ., data = df_reg)
 `
     />
 </div>
@@ -81,8 +81,9 @@ model.fit(X_poly, y)
         dataTabsTargetR="#r-reg-poly"
         ariaControlsR="r-reg-poly"
         rCode=`${rRegData} 
+
 # Ajuste de la regresión polinómica
-model <- lm(price ~ poly(size + age, degree=2), data = df)
+model <- lm(price ~ poly(size + age, degree=2), data = df_reg)
 `
     />
 </div>
@@ -93,7 +94,7 @@ model <- lm(price ~ poly(size + age, degree=2), data = df)
         ariaControlsPython="python-ridge"
         pythonCode=`${pythonRegData}
 
-# REGRESIÓN POLINÓMICA
+# REGRESIÓN RIDGE
 from sklearn.linear_model import Ridge
 
 # Ajuste de la regresión ridge
@@ -104,11 +105,157 @@ model.fit(X, y)
         ariaControlsR="r-ridge"
         rCode=`${rRegData}
 
+# Definición de predictores
+X <- df_reg %>% select(c(size, age))
+# Definición de variable target
+y <- df_reg %>% select(price)
+
 # REGRESIÓN RIDGE
 library(glmnet)
 
 # Ajuste de la regresión ridge
 model <- glmnet(X, y, alpha=0)
+`
+    />
+</div>
+
+<div id="lasso" role="complementary" aria-labelledby="lasso-tab" class="hidden flex-1 ml-1 px-1">
+    <h2 class="py-10 text-3xl">Regresión Lasso</h2>
+    <CodeSnipet
+        dataTabsTargetPython="#python-lasso"
+        ariaControlsPython="python-lasso"
+        pythonCode=`${pythonRegData}
+
+# REGRESIÓN LASSO
+from sklearn.linear_model import Lasso
+
+# Ajuste de la regresión lasso
+model = Lasso(alpha=1.0)
+model.fit(X, y)
+    `
+        dataTabsTargetR="#r-lasso"
+        ariaControlsR="r-lasso"
+        rCode=`${rRegData}
+
+# Definición de predictores
+X <- df_reg %>% select(c(size, age))
+# Definición de variable target
+y <- df_reg %>% select(price)
+
+# REGRESIÓN LASSO
+library(glmnet)
+
+# Ajuste de la regresión lasso
+model <- glmnet(X, y, alpha=1)
+`
+    />
+</div>
+<div id="decision-tree-reg" role="complementary" aria-labelledby="decision-tree-reg-tab" class="hidden flex-1 ml-1 px-1">
+    <h2 class="py-10 text-3xl">Decision Tree Regresor</h2>
+    <CodeSnipet
+        dataTabsTargetPython="#python-decision-tree-reg"
+        ariaControlsPython="python-decision-tree-reg"
+        pythonCode=`${pythonRegData}
+
+# Decision Tree Regresor
+from sklearn.tree import DecisionTreeRegressor
+
+# Ajuste del árbol de decisión
+model = DecisionTreeRegressor()
+model.fit(X, y)
+    `
+        dataTabsTargetR="#r-decision-tree-reg"
+        ariaControlsR="r-decision-tree-reg"
+        rCode=`${rRegData}
+
+# Decision Tree Regresor
+library(rpart)
+
+# Ajuste del árbol de decisión
+model <- rpart(price ~ ., data = df_reg)
+`
+    />
+</div>
+<div id="random-forest-reg" role="complementary" aria-labelledby="random-forest-reg-tab" class="hidden flex-1 ml-1 px-1">
+    <h2 class="py-10 text-3xl">Decision Tree Regresor</h2>
+    <CodeSnipet
+        dataTabsTargetPython="#python-random-forest-reg"
+        ariaControlsPython="python-random-forest-reg"
+        pythonCode=`${pythonRegData}
+
+# Random Forest Regression
+from sklearn.ensemble import RandomForestRegressor
+
+# Ajuste del random forest
+model = RandomForestRegressor()
+model.fit(X, y)
+    `
+        dataTabsTargetR="#r-random-forest-reg"
+        ariaControlsR="r-random-forest-reg"
+        rCode=`${rRegData}
+
+# Random Forest Regression
+library(randomForest)
+
+# Ajuste del random forest
+model <- randomForest(price ~ ., data = df_reg)
+`
+    />
+</div>
+<div id="sup-vect-reg" role="complementary" aria-labelledby="sup-vect-reg-tab" class="hidden flex-1 ml-1 px-1">
+    <h2 class="py-10 text-3xl">Decision Tree Regresor</h2>
+    <CodeSnipet
+        dataTabsTargetPython="#python-sup-vect-reg"
+        ariaControlsPython="python-sup-vect-reg"
+        pythonCode=`${pythonRegData}
+
+# Support Vector Regression
+from sklearn.svm import SVR
+
+# Ajuste de las máquinas de soporte vectorial
+model = SVR(kernel='rbf')
+model.fit(X, y)
+    `
+        dataTabsTargetR="#r-sup-vect-reg"
+        ariaControlsR="r-sup-vect-reg"
+        rCode=`${rRegData}
+
+# Support Vector Regression
+library(e1071)
+
+# Ajuste de las máquinas de soporte vectorial
+model <- svm(price ~ ., data = df_reg, type='eps-regression')`
+    />
+</div>
+<div id="xgb-reg" role="complementary" aria-labelledby="xgb-reg-tab" class="hidden flex-1 ml-1 px-1">
+    <h2 class="py-10 text-3xl">Decision Tree Regresor</h2>
+    <CodeSnipet
+        dataTabsTargetPython="#python-xgb-reg"
+        ariaControlsPython="python-xgb-reg"
+        pythonCode=`${pythonRegData}
+
+# XGB REGRESSOR
+from xgboost import XGBRegressor
+
+# Ajuste de xgboost
+model = XGBRegressor()
+model.fit(X, y)
+    `
+        dataTabsTargetR="#r-xgb-reg"
+        ariaControlsR="r-xgb-reg"
+        rCode=`${rRegData}
+
+# Definición de predictores
+X <- df_reg %>% select(c(size, age))
+X_matrix <- as.matrix(X)  # Convertir data.frame a matrix
+# Definición de variable target
+y <- df_reg %>% select(price)
+
+# XGB REGRESSOR
+library(xgboost)
+
+# Ajuste delas máquinas de soporte vectorial
+model <- xgboost(data = X_matrix, label = y, nrounds = 100, objective = "reg:squarederror")
 `
     />
 </div>

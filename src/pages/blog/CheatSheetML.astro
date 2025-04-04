@@ -10,6 +10,7 @@ import RegressionCode from "../../components/RegressionCode.astro";
 <MainLayout
     title="Porfolio de Emanuel Fitta - Data Science - Data Analysis - Business Intelligence"
     description="Data Science - Data Analysis - Business Intelligence. Especializado en Análitica Avanzada"
+    showFooter={false}
 >
     <Header
         inicioHref="/"
@@ -21,7 +22,7 @@ import RegressionCode from "../../components/RegressionCode.astro";
     <main class="px-4" class="px-4 pt-20">
         <aside
             id="default-sidebar"
-            class="fixed top-30 z-40 w-52 sm:w-60 lg:w-80 h-screen transition-transform xs:translate-x-0"
+            class="fixed top-30 z-40 w-52 sm:w-60 lg:w-75 h-screen transition-transform xs:translate-x-0"
             aria-label="Sidebar"
         >
             <div class="h-full px-3 py-4 overflow-y-auto">
@@ -29,7 +30,7 @@ import RegressionCode from "../../components/RegressionCode.astro";
                     <li>
                         <span class="py-10">Aprendizaje Supervisado</span>
                     </li>
-                    <ul class="space-y-2 px-5 font-medium list-disc">
+                    <ul class="space-y-2 px-5 font-medium">
                         <li>
                             <div
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
@@ -40,7 +41,7 @@ import RegressionCode from "../../components/RegressionCode.astro";
                                 <span class="ms-3">Regresión</span>
                             </div>
                         </li>
-                        <ul>
+                        <ul class="space-y-0 px-1 text-xs text-left">
                             <li>
                                 <button
                                     id="lr-tab"
@@ -49,7 +50,7 @@ import RegressionCode from "../../components/RegressionCode.astro";
                                     role="tab"
                                     aria-controls="lr"
                                     aria-selected="false"
-                                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
                                 >
                                     <span class="ms-3">Regresión Lineal</span>
                                 </button>
@@ -62,9 +63,9 @@ import RegressionCode from "../../components/RegressionCode.astro";
                                     role="tab"
                                     aria-controls="reg-poly"
                                     aria-selected="false"
-                                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
                                 >
-                                    <span class="ms-3">Reg Polinómica</span>
+                                    <span class="ms-3">Regresión Polinómica</span>
                                 </button>
                             </li>
                             <li>
@@ -75,9 +76,74 @@ import RegressionCode from "../../components/RegressionCode.astro";
                                     role="tab"
                                     aria-controls="ridge"
                                     aria-selected="false"
-                                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
                                 >
                                     <span class="ms-3">Regresión Ridge</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="lasso-tab"
+                                    data-name-nav="#lasso"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="lasso"
+                                    aria-selected="false"
+                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
+                                >
+                                    <span class="ms-3">Regresión Lasso</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="decision-tree-reg-tab"
+                                    data-name-nav="#decision-tree-reg"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="decision-tree-reg"
+                                    aria-selected="false"
+                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
+                                >
+                                    <span class="ms-3">Árboles de Decisión</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="random-forest-reg-tab"
+                                    data-name-nav="#random-forest-reg"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="random-forest-reg"
+                                    aria-selected="false"
+                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
+                                >
+                                    <span class="ms-3">Random Forest</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="sup-vect-reg-tab"
+                                    data-name-nav="#sup-vect-reg"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="sup-vect-reg"
+                                    aria-selected="false"
+                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
+                                >
+                                    <span class="ms-3">Máquinas de Soporte Vectorial</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="xgb-reg-tab"
+                                    data-name-nav="#xgb-reg"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="xgb-reg"
+                                    aria-selected="false"
+                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
+                                >
+                                    <span class="ms-3">XGBoost Regressor</span>
                                 </button>
                             </li>
                         </ul>
@@ -105,7 +171,7 @@ import RegressionCode from "../../components/RegressionCode.astro";
                 </ul>
             </div>
         </aside>
-        <div class="flex-1 ml-55 px-20">
+        <div class="flex-1 ml-65 px-20">
             <SectionContainerBlog
                 class="flex flex-col items-center max-w-[1000px] lg:items-start w-full mx-auto py-20 pb-55"
             >
