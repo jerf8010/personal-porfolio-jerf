@@ -3,8 +3,10 @@ import "../../styles/global.css";
 import MainLayout from "../../layouts/MainLayout.astro";
 import Header from "../../components/Header.astro";
 import SectionContainerBlog from "../../components/SectionContainerBlog.astro";
-import LinearRegressionIcon from "../../components/icons/LinearRegressionIcon.astro";
+import RegressionAside from '../../components/RegressionAside.astro';
+import RegressionIcon from "../../components/icons/RegressionIcon.astro";
 import RegressionCode from "../../components/RegressionCode.astro";
+import ClassificationIcon from "../../components/icons/ClassificationIcon.astro";
 ---
 
 <MainLayout
@@ -35,129 +37,20 @@ import RegressionCode from "../../components/RegressionCode.astro";
                             <div
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                             >
-                                <LinearRegressionIcon
+                                <RegressionIcon
                                     class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                 />
                                 <span class="ms-3">Regresión</span>
                             </div>
                         </li>
-                        <ul class="space-y-0 px-1 text-xs text-left">
-                            <li>
-                                <button
-                                    id="lr-tab"
-                                    data-name-nav="#lr"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="lr"
-                                    aria-selected="false"
-                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
-                                >
-                                    <span class="ms-3">Regresión Lineal</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="reg-poly-tab"
-                                    data-name-nav="#reg-poly"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="reg-poly"
-                                    aria-selected="false"
-                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
-                                >
-                                    <span class="ms-3">Regresión Polinómica</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="ridge-tab"
-                                    data-name-nav="#ridge"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="ridge"
-                                    aria-selected="false"
-                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
-                                >
-                                    <span class="ms-3">Regresión Ridge</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="lasso-tab"
-                                    data-name-nav="#lasso"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="lasso"
-                                    aria-selected="false"
-                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
-                                >
-                                    <span class="ms-3">Regresión Lasso</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="decision-tree-reg-tab"
-                                    data-name-nav="#decision-tree-reg"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="decision-tree-reg"
-                                    aria-selected="false"
-                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
-                                >
-                                    <span class="ms-3">Árboles de Decisión</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="random-forest-reg-tab"
-                                    data-name-nav="#random-forest-reg"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="random-forest-reg"
-                                    aria-selected="false"
-                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
-                                >
-                                    <span class="ms-3">Random Forest</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="sup-vect-reg-tab"
-                                    data-name-nav="#sup-vect-reg"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="sup-vect-reg"
-                                    aria-selected="false"
-                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
-                                >
-                                    <span class="ms-3">Máquinas de Soporte Vectorial</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="xgb-reg-tab"
-                                    data-name-nav="#xgb-reg"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="xgb-reg"
-                                    aria-selected="false"
-                                    class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-400 group"
-                                >
-                                    <span class="ms-3">XGBoost Regressor</span>
-                                </button>
-                            </li>
-                        </ul>
+                        <RegressionAside/>
                         <li>
                             <div
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                             >
-                                <span class="ms-3">Clasificación</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div
-                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
-                            >
+                                <ClassificationIcon
+                                    class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                />
                                 <span class="ms-3">Clasificación</span>
                             </div>
                         </li>
@@ -182,11 +75,13 @@ import RegressionCode from "../../components/RegressionCode.astro";
                     Cheat Sheet Machine Learning
                 </h1>
                 <p
-                    class="mt-6 max-w-[800px] text-sm text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+                    class="mt-6 max-w-[800px] text-md text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
                 >
-                    En esta sección se mostrarán ejemplos de implementación de los algoritmos
-                    más conocidos de <b class="text-yellow-400">Machine Learning</b> con datasets
-                    de juguete. En la barra de la izquierda puedes seleccionar el algoritmo.
+                    En esta sección se mostrarán ejemplos de implementación de
+                    los algoritmos más conocidos de <b class="text-yellow-400"
+                        >Machine Learning</b
+                    > con datasets de juguete. En la barra de la izquierda puedes
+                    seleccionar el algoritmo.
                 </p>
                 <RegressionCode />
             </SectionContainerBlog>
