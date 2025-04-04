@@ -1,0 +1,114 @@
+---
+import CodeSnipet from "../components/CodeSnipet.astro";
+
+const pythonRegData = `
+import pandas as pd
+import numpy as np
+
+# Dataset de juguete (Regresión)
+np.random.seed(42)
+size = np.random.randint(50, 200, 100)  # Tamaño en m²
+age = np.random.randint(1, 30, 100)     # Antigüedad en años
+price = 1000 * size - 500 * age + np.random.normal(0, 5000, 100)  # Precio en $
+
+df_reg = pd.DataFrame({"size": size, "age": age, "price": price})
+
+# Definición de predictores
+X = df_reg[["size", "age"]]
+# Definición de variable target
+y = df_reg["price"]
+`
+
+const rRegData = `
+library(dplyr)
+
+# Dataset de juguete (Regresión)
+set.seed(42)
+size <- sample(50:200, 100, replace = TRUE)  # Tamaño en m²
+age <- sample(1:30, 100, replace = TRUE)     # Antigüedad en años
+price <- 1000 * size - 500 * age + rnorm(100, 0, 5000)  # Precio en $
+
+df_reg <- data.frame(size, age, price)
+`
+---
+<div id="lr" role="complementary" aria-labelledby="lr-tab" class="hidden flex-1 ml-1 px-1">
+    <h2 class="py-10 text-3xl">Regresión Lineal</h2>
+    <CodeSnipet
+        dataTabsTargetPython="#python-lr"
+        ariaControlsPython="python-lr"
+        pythonCode=`${pythonRegData} 
+
+# REGRESIÓN LINEAL
+from sklearn.linear_model import LinearRegression
+
+# Ajuste de la regresión lineal
+model = LinearRegression()
+model.fit(X, y)
+    `
+        dataTabsTargetR="#r-lr"
+        ariaControlsR="r-lr"
+        rCode=`${rRegData} 
+# Ajuste de la regresión lineal
+model <- lm(price ~ ., data = df)
+`
+    />
+</div>
+<div
+    id="reg-poly"
+    role="complementary"
+    aria-labelledby="reg-poly-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="py-10 text-3xl">Regresión Polinómica</h2>
+
+    <CodeSnipet
+        dataTabsTargetPython="#python-reg-poly"
+        ariaControlsPython="python-reg-poly"
+        pythonCode=`${pythonRegData} 
+
+# REGRESIÓN POLINÓMICA
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+
+# Transformación de prdictores a polinomio
+poly = PolynomialFeatures(degree=2)
+X_poly = poly.fit_transform(X)
+
+# Ajuste de la regresión polinómica
+model = LinearRegression()
+model.fit(X_poly, y)
+    `
+        dataTabsTargetR="#r-reg-poly"
+        ariaControlsR="r-reg-poly"
+        rCode=`${rRegData} 
+# Ajuste de la regresión polinómica
+model <- lm(price ~ poly(size + age, degree=2), data = df)
+`
+    />
+</div>
+<div id="ridge" role="complementary" aria-labelledby="ridge-tab" class="hidden flex-1 ml-1 px-1">
+    <h2 class="py-10 text-3xl">Regresión Ridge</h2>
+    <CodeSnipet
+        dataTabsTargetPython="#python-ridge"
+        ariaControlsPython="python-ridge"
+        pythonCode=`${pythonRegData}
+
+# REGRESIÓN POLINÓMICA
+from sklearn.linear_model import Ridge
+
+# Ajuste de la regresión ridge
+model = Ridge(alpha=1.0)
+model.fit(X, y)
+    `
+        dataTabsTargetR="#r-ridge"
+        ariaControlsR="r-ridge"
+        rCode=`${rRegData}
+
+# REGRESIÓN RIDGE
+library(glmnet)
+
+# Ajuste de la regresión ridge
+model <- glmnet(X, y, alpha=0)
+`
+    />
+</div>

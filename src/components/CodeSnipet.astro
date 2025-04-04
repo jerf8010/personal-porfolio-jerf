@@ -53,19 +53,17 @@ const {
                 type="button"
                 role="tab"
                 aria-controls={ariaControlsR}
-                aria-selected="true"
+                aria-selected="false"
                 class="flex justify-center items-center py-1 px-4 text-blue-600 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
                 <RIcon class="size-4 xs:size-6" />
-                <p class="flex-1 px-2 py-2">
-                    R
-                </p></button
+                <p class="flex-1 px-2 py-2">R</p></button
             >
         </li>
     </ul>
     <div id="defaultTabContent">
         <div
-            class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
+            class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
             id={ariaControlsPython}
             role="tabpanel"
             aria-labelledby="python-tab"
@@ -85,19 +83,28 @@ const {
 
 <script type="module">
     function iniciarTabs() {
-        console.log("✅ Tabs inicializados");
+        //console.log("✅ Tabs inicializados");
 
         const tabs = document.querySelectorAll("[data-tabs-target]");
         const tabPanels = document.querySelectorAll("[role='tabpanel']");
-        console.log("tab panels", tabPanels)
+        tabPanels.forEach((panel) => 
+            panel.classList.add("hidden")
+        );
+        tabs.forEach((tab) => tab.classList.remove("text-blue-600", "dark:text-blue-500"));
+
+        //tabPanels.forEach((panel, index) => {
+        //    if (index % 2 == 0) {
+        //        panel.classList.remove("hidden");
+        //    }
+        //});
         tabs.forEach((tab) => {
             tab.addEventListener("click", function () {
                 const targetPanel = document.querySelector(
                     tab.dataset.tabsTarget,
                 );
-                console.log("target panel", targetPanel)
 
                 tabPanels.forEach((panel) => panel.classList.add("hidden"));
+
                 tabs.forEach((otherTab) =>
                     otherTab.classList.remove(
                         "text-blue-600",
@@ -109,12 +116,11 @@ const {
                 tab.classList.add("text-blue-600", "dark:text-blue-500");
             });
         });
-
-        tabs[0]?.click();
+        //tabs[0]?.click();
     }
 
     // 🔄 Esperar que Astro cargue completamente antes de ejecutar
-    setTimeout(iniciarTabs, 100);
+    setTimeout(iniciarTabs, 10);
     document.addEventListener("DOMContentLoaded", iniciarTabs);
     document.addEventListener("astro:after-swap", iniciarTabs);
 </script>
