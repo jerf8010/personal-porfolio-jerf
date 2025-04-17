@@ -1,0 +1,527 @@
+---
+import CodeSnipet from "../../components/CodeSnipet.astro";
+---
+
+<div
+    id="stack"
+    role="complementary"
+    aria-labelledby="stack-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="mt-10 py-2 text-3xl">Stack (Pila)</h2>
+    <p
+        class="mt-6 max-w-[800px] text-md text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+    >
+    <ul class="space-y-3 px-1 py-5 text-md text-left">
+        <li><strong>Descripción.</strong> Estructura LIFO, último en entrar, primero en salir</li>
+        <li><strong>Operaciones clave.</strong> append() para push, pop() para pop.</li>
+    </ul>
+    </p>
+        <CodeSnipet
+            dataTabsTargetPython="#python-stack"
+            ariaControlsPython="python-stack"
+            pythonCode=`
+# Implementación básica
+stack = []          # Creamos una lista vacía que funcionará como pila
+stack.append(1)     # Push: Añadimos 1 a la pila → [1]
+stack.append(2)     # Push: Añadimos 2 a la pila → [1, 2]
+print(stack.pop())  # Pop: Elimina y retorna el último elemento (2) → [1]
+
+# Ejemplo típico 1: Verificar si una cadena con paréntesis está balanceada y correctamente anidada.
+def is_valid(s):
+    stack = []
+    pairs = {')': '(', ']': '[', '}': '{'}
+    for char in s:
+        if char in pairs.values():  # Si es un paréntesis de apertura
+            stack.append(char)  # Se agrega a la pila
+        elif char in pairs:  # Si es un paréntesis de cierre
+            if not stack or stack[-1] != pairs[char]:  # Si la pila está vacía o no coincide con el par esperado
+                return False
+            stack.pop()  # El par coincide, lo eliminamos
+    return not stack  # Si la pila está vacía al final, es válido
+
+# Ejemplo visual
+s = "({[]})"
+stack = []
+
+# '(' → stack = ['(']
+# '{' → stack = ['(', '{']
+# '[' → stack = ['(', '{', '[']
+# ']' → cierra '[' → stack = ['(', '{']
+# '}' → cierra '{' → stack = ['(']
+# ')' → cierra '(' → stack = []
+
+# stack vacío → ✅ válido
+
+###########################################################################################
+
+# Ejemplo típico 2: Evaluar RPN (Reverse Polish Notation)
+def evaluateRPN(tokens):
+    stack = []
+    for token in tokens:
+        if token not in '+-*/':
+            stack.append(int(token))  # Agregar número a la pila
+        else:
+            b, a = stack.pop(), stack.pop()  # Sacar los dos últimos operandos
+            if token == '+': stack.append(a + b)
+            elif token == '-': stack.append(a - b)
+            elif token == '*': stack.append(a * b)
+            else: stack.append(int(a / b))  # División entera
+    return stack[0]
+
+# Ejemplo visual
+tokens = ["2", "1", "+", "3", "*"]
+# Stack inicial: []
+# "2" → stack = [2]
+# "1" → stack = [2, 1]
+# "+" → pop 1 y 2 → 2 + 1 = 3 → stack = [3]
+# "3" → stack = [3, 3]
+# "*" → pop 3 y 3 → 3 * 3 = 9 → stack = [9]
+# Resultado final: 9
+    `
+            dataTabsTargetR="#r-stack"
+            ariaControlsR="r-stack"
+            rCode=`
+`
+        />
+    </p>
+</div>
+
+<div
+    id="queue"
+    role="complementary"
+    aria-labelledby="queue-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="mt-10 py-2 text-3xl">Queue (Cola)</h2>
+    <p
+        class="mt-6 max-w-[800px] text-md text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+    >
+    <ul class="space-y-3 px-1 py-5 text-md text-left">
+        <li><strong>Descripción.</strong> Estructura FIFO (primero en entrar, primero en salir).</li>
+    </ul>
+    </p>
+        <CodeSnipet
+            dataTabsTargetPython="#python-queue"
+            ariaControlsPython="python-queue"
+            pythonCode=`
+# Implementación básica
+from collections import deque  # Importamos deque para eficiencia
+
+queue = deque()      # Creamos una cola vacía
+queue.append(1)      # Enqueue: Añadimos 1 → deque([1])
+queue.append(2)      # Enqueue: Añadimos 2 → deque([1, 2])
+print(queue.popleft())  # Dequeue: Extraemos el primer elemento (1) → deque([2])
+
+# Ejemplo típico 1: BFS (Breadth-First Search) en un árbol
+from collections import deque
+
+def bfs(root):
+    if not root:  # Caso base: árbol vacío
+        return []
+    
+    queue = deque([root])  # Inicializamos la cola con la raíz
+    result = []  # Aquí almacenaremos el recorrido BFS
+    
+    while queue:  # Mientras haya nodos por procesar
+        node = queue.popleft()  # Extraemos el primer nodo de la cola
+        result.append(node.val)  # Añadimos su valor al resultado
+        
+        # Añadimos hijos izquierdo y derecho a la cola si existen
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+    
+    return result
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# Ejemplo visual
+# Árbol:
+#      1
+#    /   \\
+#   2     3
+#  / \\   /
+# 4   5 6
+
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.right.right = TreeNode(6)
+
+# Al aplicar bfs
+# queue = [1] → result = [1]
+# queue = [2, 3] → result = [1, 2, 3]
+# queue = [4, 5, 6] → result = [1, 2, 3, 4, 5, 6]
+
+###########################################################################################
+
+# Ejemplo típico 2: 
+#   Casa
+# /      \\
+# Tienda  Trabajo
+# \\     /
+#  Gimnasio
+
+# Definimos el grafo como un diccionario de listas de adyacencia
+grafo = {
+    'Casa': ['Tienda', 'Trabajo'],    # Casa está conectada a Tienda y Trabajo
+    'Tienda': ['Casa', 'Gimnasio'],   # Tienda está conectada a Casa y Gimnasio
+    'Trabajo': ['Casa', 'Gimnasio'],  # Trabajo está conectada a Casa y Gimnasio
+    'Gimnasio': ['Tienda', 'Trabajo'] # Gimnasio está conectada a Tienda y Trabajo
+}
+
+def bfs_camino_mas_corto(grafo, inicio, fin):
+    queue = deque([(inicio, [inicio])])  # Cola: (nodo_actual, camino_hasta_ahora)
+    visitados = set([inicio])           # Nodos ya visitados
+    
+    while queue:
+        nodo_actual, camino = queue.popleft()
+        
+        if nodo_actual == fin:
+            return camino  # ¡Encontramos el camino!
+        
+        for vecino in grafo[nodo_actual]:
+            if vecino not in visitados:
+                visitados.add(vecino)
+                queue.append((vecino, camino + [vecino]))  # Añadimos el vecino al camino
+    
+    return None  # No hay camino (aunque en este caso siempre existe)
+
+# Ejecutamos BFS desde 'Casa' hasta 'Trabajo'
+camino = bfs_camino_mas_corto(grafo, 'Casa', 'Trabajo')
+
+# 1. Inicialización:
+### queue = deque([('Casa', ['Casa'])]) (empezamos en 'Casa').
+### visitados = {'Casa'}.
+
+# 2. Primera iteración:
+
+### Sacamos: ('Casa', ['Casa']) de la cola.
+### Vecinos de 'Casa': 'Tienda' y 'Trabajo'.
+### Añadimos a la cola: ('Tienda', ['Casa', 'Tienda']) y ('Trabajo', ['Casa', 'Trabajo'])
+### Cola ahora: [('Tienda', [...]), ('Trabajo', [...])]
+### Visitados: {'Casa', 'Tienda', 'Trabajo'}.
+
+# 3. Segunda iteración:
+
+### Sacamos: ('Tienda', ['Casa', 'Tienda']).
+### Vecinos de 'Tienda': 'Casa' (ya visitado) y 'Gimnasio'.
+### Añadimos a la cola: ('Gimnasio', ['Casa', 'Tienda', 'Gimnasio']).
+### Cola ahora: [('Trabajo', [...]), ('Gimnasio', [...])].
+
+# 4. Tercera iteración:
+
+### Sacamos: ('Trabajo', ['Casa', 'Trabajo']).
+### ¡Este es el objetivo! Retornamos el camino ['Casa', 'Trabajo'].
+
+print("Camino más corto:", camino)
+# -> Camino más corto: ['Casa', 'Trabajo']
+    `
+            dataTabsTargetR="#r-queue"
+            ariaControlsR="r-queue"
+            rCode=`
+`
+        />
+    </p>
+</div>
+
+<div
+    id="deque"
+    role="complementary"
+    aria-labelledby="deque-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="mt-10 py-2 text-3xl">Deque (Double-Ended Queue)</h2>
+
+        <CodeSnipet
+            dataTabsTargetPython="#python-deque"
+            ariaControlsPython="python-deque"
+            pythonCode=`
+# Implementación basica
+from collections import deque
+
+dq = deque()       # Crea un deque vacío
+dq.append(1)       # Añade 1 por la derecha → deque([1])
+dq.appendleft(2)   # Añade 2 por la izquierda → deque([2, 1])
+dq.pop()           # Elimina y retorna el último elemento (1)
+dq.popleft()       # Elimina y retorna el primer elemento (2)
+
+# Ejemplo típico: Sliding Window Máximo
+def maxSlidingWindow(nums, k):
+    dq, res = deque(), []  # dq guarda ÍNDICES, no valores
+    for i, n in enumerate(nums):
+        # 1. Elimina índices fuera de la ventana actual (izquierda)
+        while dq and dq[0] <= i - k:
+            dq.popleft()
+
+        # 2. Elimina elementos menores que el actual (derecha)
+        while dq and nums[dq[-1]] < n:
+            dq.pop()
+
+        # 3. Añade el índice actual al deque
+        dq.append(i)
+
+        # 4. Añade el máximo (dq[0]) al resultado si la ventana está completa
+        if i >= k - 1:
+            res.append(nums[dq[0]])
+    return res
+
+# Input: nums = [1, 3, -1, -3, 5, 3, 6, 7], k = 3
+# Output: [3, 3, 5, 5, 6, 7] (máximos de [1,3,-1], [3,-1,-3],..., [6,7]).
+    `
+            dataTabsTargetR="#r-deque"
+            ariaControlsR="r-deque"
+            rCode=`
+`
+        />
+    </p>
+</div>
+
+<div
+    id="linked-list"
+    role="complementary"
+    aria-labelledby="linked-list-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="mt-10 py-2 text-3xl">Linked List</h2>
+        <CodeSnipet
+            dataTabsTargetPython="#python-linked-list"
+            ariaControlsPython="python-linked-list"
+            pythonCode=`
+# Implementación básica
+class Node:
+    def __init__(self, val=0, next=None):
+        self.val = val  # Valor del nodo
+        self.next = next  # Referencia al siguiente nodo
+
+# Creamos una lista: 1 → 2 → 3
+head = Node(1, Node(2, Node(3)))
+
+# Ejemplo típico: Invertir lista
+def reverse_list(head):
+    prev = None  # Nodo previo inicialmente es None
+    curr = head  # Empezamos en la cabeza de la lista
+    
+    while curr:  # Mientras no lleguemos al final
+        next_node = curr.next  # Guardamos el siguiente nodo
+        curr.next = prev      # Invertimos el enlace
+        prev = curr           # Movemos prev al nodo actual
+        curr = next_node      # Movemos curr al siguiente nodo
+    
+    return prev  # prev ahora es la nueva cabeza
+
+# Imprimir lista invertida
+def print_list(node):
+    while node:
+        print(node.val, end=" → ")
+        node = node.next
+    print("None")
+
+# Ejemplo visual:
+print_list(head)
+# Original: 1 → 2 → 3 → None
+
+new_head = reverse_list(head)
+# paso 0: prev = None, curr = 1 → next=2
+# Paso 1: next_node = 2, 1.next = None → prev=1, curr=2
+# Paso 2: next_node = 3, 2.next = 1 → prev=2, curr=3
+# Paso 3: next_node = None, 3.next=2 → prev=3, curr=None
+
+print_list(new_head)
+# Resultado: 3 → 2 → 1 → None
+
+    `
+            dataTabsTargetR="#r-linked-list"
+            ariaControlsR="r-linked-list"
+            rCode=`
+`
+        />
+    </p>
+</div>
+
+<div
+    id="hashmap"
+    role="complementary"
+    aria-labelledby="hashmap-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="mt-10 py-2 text-3xl">Hash Table (Diccionario)</h2>
+
+        <CodeSnipet
+            dataTabsTargetPython="#python-hashmap"
+            ariaControlsPython="python-hashmap"
+            pythonCode=`
+# Implementación básica
+d = {}  # Creamos un diccionario vacío
+d["key1"] = 10  # Insertamos un valor con clave "key1"
+print(d.get("key1"))  # Obtenemos el valor asociado a "key1" → 10
+
+# Ejemplo típico 1: Contador de frecuencias
+def count_freq(arr):
+    freq = {}  # Diccionario para almacenar frecuencias
+    
+    for num in arr:  # Recorremos cada número en el arreglo
+        # Incrementamos el contador del número (o lo inicializamos en 0 si no existe)
+        freq[num] = freq.get(num, 0) + 1
+    
+    return freq
+
+# Ejemplo:
+print(count_freq([1, 2, 2, 3]))  # {1: 1, 2: 2, 3: 1}
+
+###########################################################################################
+
+# Ejemplo típico 2: Agrupar anagramas
+def groupAnagrams(strs):
+    anagrams = {}
+    for word in strs:
+        key = tuple(sorted(word))
+        anagrams.setdefault(key, []).append(word)
+    return list(anagrams.values())
+
+palabras = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(groupAnagrams(palabras))
+# Output: [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]
+    `
+            dataTabsTargetR="#r-hashmap"
+            ariaControlsR="r-hashmap"
+            rCode=`
+`
+        />
+    </p>
+</div>
+
+<div
+    id="set"
+    role="complementary"
+    aria-labelledby="set-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="mt-10 py-2 text-3xl">Set</h2>
+
+        <CodeSnipet
+            dataTabsTargetPython="#python-set"
+            ariaControlsPython="python-set"
+            pythonCode=`
+# Implementación básica
+nums = [1, 2, 2, 3]
+unique = set(nums)  # {1, 2, 3}
+print(2 in unique)  # True
+
+# Ejemplo típico: Substring más larga sin repetir caracteres
+def lengthOfLongestSubstring(s):
+    seen = set()
+    left = res = 0
+    for right in range(len(s)):
+        while s[right] in seen:
+            seen.remove(s[left])
+            left += 1
+        seen.add(s[right])
+        res = max(res, right - left + 1)
+    return res
+
+lengthOfLongestSubstring("abcabcbb")
+# output: 3 (subcadenas como "abc" o "bca").
+
+
+    `
+            dataTabsTargetR="#r-set"
+            ariaControlsR="r-set"
+            rCode=`
+`
+        />
+    </p>
+</div>
+
+<div
+    id="array"
+    role="complementary"
+    aria-labelledby="array-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="mt-10 py-2 text-3xl">Array</h2>
+
+        <CodeSnipet
+            dataTabsTargetPython="#python-array"
+            ariaControlsPython="python-array"
+            pythonCode=`
+# Implementación básica
+arr = [1, 2, 3]
+arr.append(4)
+arr[1] = 10
+print(arr)  # [1, 10, 3, 4]
+
+# Ejemplo típico: Mover ceros al final
+def moveZeroes(nums):
+    pos = 0
+    for num in nums:
+        if num != 0:
+            nums[pos] = num
+            pos += 1
+    for i in range(pos, len(nums)):
+        nums[i] = 0
+
+aux = [0, 1, 0, 3, 12]
+moveZeroes(aux)
+print(aux) 
+# Output: [1, 3, 12, 0, 0]
+    `
+            dataTabsTargetR="#r-array"
+            ariaControlsR="r-array"
+            rCode=`
+`
+        />
+    </p>
+</div>
+
+<div
+    id="heap"
+    role="complementary"
+    aria-labelledby="heap-tab"
+    class="hidden flex-1 ml-1 px-1"
+>
+    <h2 class="mt-10 py-2 text-3xl">Heap (Montículo)</h2>
+
+        <CodeSnipet
+            dataTabsTargetPython="#python-heap"
+            ariaControlsPython="python-heap"
+            pythonCode=`
+# Implementación basica
+import heapq
+
+min_heap = []  # Lista que funcionará como min-heap
+heapq.heappush(min_heap, 3)  # Insertamos 3 → [3]
+heapq.heappush(min_heap, 1)  # Insertamos 1 → [1, 3] (se reordena automáticamente)
+print(heapq.heappop(min_heap))  # Extraemos el mínimo → 1, heap queda [3]
+
+# Ejemplo típico: K elementos más grandes
+import heapq
+
+def k_largest(nums, k):
+    min_heap = []  # Usamos un min-heap para mantener los k más grandes
+    
+    for num in nums:  # Recorremos cada número
+        heapq.heappush(min_heap, num)  # Añadimos el número al heap
+        if len(min_heap) > k:  # Si el heap excede k elementos
+            heapq.heappop(min_heap)  # Eliminamos el más pequeño
+    
+    return min_heap  # Al final, tendremos los k más grandes
+
+# Ejemplo:
+print(k_largest([4, 1, 7, 3, 8, 5], 3))  # [5, 7, 8]
+    `
+            dataTabsTargetR="#r-heap"
+            ariaControlsR="r-heap"
+            rCode=`
+`
+        />
+    </p>
+</div>

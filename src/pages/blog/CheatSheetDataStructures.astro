@@ -3,12 +3,9 @@ import "../../styles/global.css";
 import MainLayout from "../../layouts/MainLayout.astro";
 import Header from "../../components/Header.astro";
 import SectionContainerBlog from "../../components/SectionContainerBlog.astro";
-import RegressionAside from '../../components/cheatsheetml/RegressionAside.astro';
-import RegressionIcon from "../../components/icons/RegressionIcon.astro";
-import RegressionCode from "../../components/cheatsheetml/RegressionCode.astro";
-import ClassificationIcon from "../../components/icons/ClassificationIcon.astro";
+import DataStructuresAside from "../../components/cheatsheetds/DataStructuresAside.astro";
+import DataStructuresCode from "../../components/cheatsheetds/DataStructuresCode.astro";
 ---
-
 <MainLayout
     title="Porfolio de Emanuel Fitta - Data Science - Data Analysis - Business Intelligence"
     description="Data Science - Data Analysis - Business Intelligence. Especializado en Análitica Avanzada"
@@ -30,37 +27,11 @@ import ClassificationIcon from "../../components/icons/ClassificationIcon.astro"
             <div class="h-full px-3 py-4 overflow-y-auto">
                 <ul class="space-y-2 px-5 font-medium">
                     <li>
-                        <span class="py-10">Aprendizaje Supervisado</span>
+                        <span class="py-10">Estructuras de Datos</span>
                     </li>
                     <ul class="space-y-2 px-5 font-medium">
-                        <li>
-                            <div
-                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
-                            >
-                                <RegressionIcon
-                                    class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                />
-                                <span class="ms-3">Regresión</span>
-                            </div>
-                        </li>
-                        <RegressionAside/>
-                        <li>
-                            <div
-                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
-                            >
-                                <ClassificationIcon
-                                    class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                />
-                                <span class="ms-3">Clasificación</span>
-                            </div>
-                        </li>
+                        <DataStructuresAside/>
                     </ul>
-                    <hr
-                        class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"
-                    />
-                    <li>
-                        <span class="py-10">Aprendizaje No Supervisado</span>
-                    </li>
                 </ul>
             </div>
         </aside>
@@ -72,18 +43,17 @@ import ClassificationIcon from "../../components/icons/ClassificationIcon.astro"
                     id="cheat-sheet-ml"
                     class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-800 dark:text-white flex items-center gap-x-4 py-10 scroll-mt-22"
                 >
-                    Cheat Sheet Machine Learning
+                    Cheat Sheet: <br/>
+                    Estructuras de Datos
                 </h1>
                 <p
                     class="mt-6 max-w-[800px] text-md text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
                 >
-                    En esta sección se mostrarán ejemplos de implementación de
-                    los algoritmos más conocidos de <b class="text-yellow-400"
-                        >Machine Learning</b
-                    > con datasets de juguete. En la barra de la izquierda puedes
-                    seleccionar el algoritmo.
+                    En esta sección se mostrarán la definición básica y ejemplos de la implementación de
+                    las estructuras de datos más conocidas. En la barra de la izquierda puedes
+                    seleccionar la estructura.
                 </p>
-                <RegressionCode />
+                <DataStructuresCode />
             </SectionContainerBlog>
         </div>
     </main>
@@ -121,3 +91,4 @@ import ClassificationIcon from "../../components/icons/ClassificationIcon.astro"
     document.addEventListener("DOMContentLoaded", iniciarTabs);
     document.addEventListener("astro:after-swap", iniciarTabs);
 </script>
+
